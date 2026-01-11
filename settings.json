@@ -12,12 +12,7 @@
         "Drone2": {"VehicleType": "SimpleFlight", "X": 2, "Y": 0, "Z": 0, "Yaw": 0},
         "Drone3": {"VehicleType": "SimpleFlight", "X": 4, "Y": 0, "Z": 0, "Yaw": 0},
         "Drone4": {"VehicleType": "SimpleFlight", "X": 6, "Y": 0, "Z": 0, "Yaw": 0},
-        "Drone5": {"VehicleType": "SimpleFlight", "X": 8, "Y": 0, "Z": 0, "Yaw": 0},
-        "Drone6": {"VehicleType": "SimpleFlight", "X": 0, "Y": 2, "Z": 0, "Yaw": 0},
-        "Drone7": {"VehicleType": "SimpleFlight", "X": 2, "Y": 2, "Z": 0, "Yaw": 0},
-        "Drone8": {"VehicleType": "SimpleFlight", "X": 4, "Y": 2, "Z": 0, "Yaw": 0},
-        "Drone9": {"VehicleType": "SimpleFlight", "X": 6, "Y": 2, "Z": 0, "Yaw": 0},
-        "Drone10": {"VehicleType": "SimpleFlight", "X": 8, "Y": 2, "Z": 0, "Yaw": 0}
+        "Drone5": {"VehicleType": "SimpleFlight", "X": 8, "Y": 0, "Z": 0, "Yaw": 0}
     },
     
     "Sensors": {},

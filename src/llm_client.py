@@ -188,6 +188,118 @@ f -= c.orient(X) | c.orient(Y) | c.orient(Z)
         self.llm_client.clear_history()
 
 
+class EdgePointGenerator:
+    """Ask LLM to generate edge points for 2D shapes (or 3D polyline) as JSON."""
+
+    PROMPT_TEMPLATE = (
+        "You are given a short shape description. "
+        "Return a JSON object with a key 'points' containing an array of [x,y,z] coordinates that lie on the shape's edge. "
+        "- Coordinates should be given in unit scale (unit radius/size ~1). "
+        "- For strictly 2D shapes, set z=0 for all points. "
+        "- Return EXACTLY a single JSON object (no extra text). "
+        "- Do not include comments or code fences.\n\n"
+        "Example output: {\"points\": [[0,1,0],[0.707,0.707,0],...]}\n\n"
+    )
+
+    def __init__(self, llm_client: LLMClient):
+        self.llm_client = llm_client
+
+    def _extract_json(self, text: str) -> str:
+        import re
+        # Prefer a JSON object, otherwise accept a JSON array
+        m = re.search(r"\{[\s\S]*\}", text, flags=re.DOTALL)
+        if m:
+            return m.group(0)
+        m2 = re.search(r"\[[\s\S]*\]", text, flags=re.DOTALL)
+        return m2.group(0) if m2 else ""
+
+    def generate_edge_points(self, description: str, num_points: int = 10, temperature: float = 0.0) -> list:
+        """
+        Ask the LLM to produce edge points for the given description.
+
+        Returns list of [x,y,z] floats, or empty list on failure.
+        """
+        prompt = self.PROMPT_TEMPLATE + f"Task: make {num_points} points for '{description}'."
+
+        # Use conversation but keep it short
+        self.llm_client.add_user_message(prompt)
+        messages = self.llm_client.get_history()
+        response = self.llm_client.chat_completion(messages, temperature=temperature)
+        # Save raw LLM response for debugging
+        try:
+            out_dir = os.path.join(os.getcwd(), "outputs")
+            os.makedirs(out_dir, exist_ok=True)
+            ts = __import__("datetime").datetime.now().strftime("%Y%m%d_%H%M%S")
+            raw_path = os.path.join(out_dir, f"llm_edge_resp_{ts}.txt")
+            with open(raw_path, "w", encoding="utf-8") as rf:
+                rf.write(response)
+        except Exception:
+            raw_path = None
+
+        self.llm_client.add_assistant_message(response)
+
+        json_text = self._extract_json(response)
+        if not json_text:
+            return []
+
+        try:
+            parsed = json.loads(json_text)
+        except Exception:
+            return []
+
+        pts = []
+        if isinstance(parsed, dict):
+            pts = parsed.get("points") or parsed.get("pts") or parsed.get("coordinates") or []
+        elif isinstance(parsed, list):
+            pts = parsed
+
+        out = []
+        for p in pts:
+            try:
+                if isinstance(p, (list, tuple)) and len(p) >= 2:
+                    if len(p) == 2:
+                        out.append([float(p[0]), float(p[1]), 0.0])
+                    else:
+                        out.append([float(p[0]), float(p[1]), float(p[2])])
+            except Exception:
+                continue
+
+        return out
+
+
+class SVGGenerator:
+    """Ask LLM to generate an SVG describing the shape's outline.
+
+    The LLM should return an SVG snippet (a full <svg>...</svg> element).
+    """
+
+    PROMPT_TEMPLATE = (
+        "You are given a short shape description. "
+        "Return ONLY an SVG string that draws the outline of the described shape. "
+        "The SVG must be a valid '<svg>...</svg>' element. Use simple primitives: <path>, <circle>, <rect>, <polygon>, <polyline>. "
+        "Coordinates should be in unit scale (radius or size ~1). For 2D shapes set z=0 implicitly. "
+        "Do NOT include any surrounding explanation or extra text.\n\n"
+    )
+
+    def __init__(self, llm_client: LLMClient):
+        self.llm_client = llm_client
+
+    def _extract_svg(self, text: str) -> str:
+        import re
+        m = re.search(r"<svg[\s\S]*?<\/svg>", text, flags=re.IGNORECASE)
+        return m.group(0) if m else ""
+
+    def generate_svg(self, description: str, temperature: float = 0.0) -> str:
+        prompt = self.PROMPT_TEMPLATE + f"Task: create an SVG for '{description}'."
+        self.llm_client.add_user_message(prompt)
+        messages = self.llm_client.get_history()
+        response = self.llm_client.chat_completion(messages, temperature=temperature)
+        self.llm_client.add_assistant_message(response)
+
+        svg_text = self._extract_svg(response)
+        return svg_text
+
+
 # Example usage
 if __name__ == "__main__":
     # Initialize client

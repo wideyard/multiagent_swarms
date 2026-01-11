@@ -1,0 +1,4 @@
+from sdf import *
+
+# Horizontal circular disk (thin capped cylinder aligned with Z-axis)
+f = capped_cylinder((0, 0, -0.01), (0, 0, 0.01), 1.0)
