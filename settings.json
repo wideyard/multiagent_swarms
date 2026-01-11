@@ -1,0 +1,33 @@
+{
+    "SettingsVersion": 1.2,
+    "SimMode": "Multirotor",
+    "TimeOfDay": "12:00:00",
+    "WindMode": "Disabled",
+    "ClockSpeed": 1.0,
+    "EngineMaxFPS": 30,
+    "PhysicsEngineName": "FastPhysicsEngine",
+    "WindowMode": "windowed",   
+    "Vehicles": {
+        "Drone1": {"VehicleType": "SimpleFlight", "X": 0, "Y": 0, "Z": 0, "Yaw": 0},
+        "Drone2": {"VehicleType": "SimpleFlight", "X": 2, "Y": 0, "Z": 0, "Yaw": 0},
+        "Drone3": {"VehicleType": "SimpleFlight", "X": 4, "Y": 0, "Z": 0, "Yaw": 0},
+        "Drone4": {"VehicleType": "SimpleFlight", "X": 6, "Y": 0, "Z": 0, "Yaw": 0},
+        "Drone5": {"VehicleType": "SimpleFlight", "X": 8, "Y": 0, "Z": 0, "Yaw": 0},
+        "Drone6": {"VehicleType": "SimpleFlight", "X": 0, "Y": 2, "Z": 0, "Yaw": 0},
+        "Drone7": {"VehicleType": "SimpleFlight", "X": 2, "Y": 2, "Z": 0, "Yaw": 0},
+        "Drone8": {"VehicleType": "SimpleFlight", "X": 4, "Y": 2, "Z": 0, "Yaw": 0},
+        "Drone9": {"VehicleType": "SimpleFlight", "X": 6, "Y": 2, "Z": 0, "Yaw": 0},
+        "Drone10": {"VehicleType": "SimpleFlight", "X": 8, "Y": 2, "Z": 0, "Yaw": 0}
+    },
+    
+    "Sensors": {},
+    "CppClientVersion": 1,
+    "Recording": {
+        "RecordOnMove": false,
+        "RecordInterval": 0.05
+    },
+    "ApiServerPort": 41451,
+    "LogMessagesVisible": true,
+    "ExternalController": false,
+    "LocalHostIp": "127.0.0.1"
+}

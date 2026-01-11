@@ -1,0 +1,6 @@
+numpy>=1.24.0
+scipy>=1.10.0
+scikit-learn>=1.3.0
+openai>=1.3.0
+sdf @ git+https://github.com/fogleman/sdf.git@main
+airsim>=1.8.0
