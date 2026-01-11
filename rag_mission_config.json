@@ -1,0 +1,21 @@
+{
+  "mission_type": "circle_formation_10_drones",
+  "formation": {
+    "name": "circle",
+    "radius": 5.0,
+    "altitude": 5.0,
+    "num_drones": 10
+  },
+  "safety_parameters": {
+    "min_separation": 2.0,
+    "max_velocity": 2.0,
+    "arrival_threshold": 0.5,
+    "control_update_hz": 2.0
+  },
+  "apf_controller": {
+    "p_cohesion": 2.0,
+    "p_separation": 1.0,
+    "min_dist": 2.0
+  },
+  "knowledge_base": "Using 6 domain documents for guidance"
+}
