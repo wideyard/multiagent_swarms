@@ -16,12 +16,12 @@ Usage:
 __version__ = "1.0.0"
 
 # Import main components
-from integrated_controller import LLMAirSimSwarmController
-from llm_client import LLMClient, SDFGenerator
-from airsim_controller import AirSimDroneController, AirSimSwarmController
-from swarm_controller import PointDistributor, APFSwarmController
-from sdf_executor import SDFExecutor
-from config import get_config, update_config
+from src.integrated_controller import LLMAirSimSwarmController
+from src.llm_client import LLMClient, SDFGenerator
+from src.airsim_controller import AirSimDroneController, AirSimSwarmController
+from src.swarm_controller import PointDistributor, APFSwarmController
+from src.sdf_executor import SDFExecutor
+from src.config import get_config, update_config
 import examples
 import diagnose
 import quickstart

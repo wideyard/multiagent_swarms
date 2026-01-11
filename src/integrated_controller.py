@@ -8,10 +8,10 @@ import time
 from typing import List, Optional
 import threading
 
-from llm_client import LLMClient, SDFGenerator
-from airsim_controller import AirSimSwarmController
-from swarm_controller import PointDistributor, APFSwarmController
-from sdf_executor import SDFExecutor
+from .llm_client import LLMClient, SDFGenerator
+from .airsim_controller import AirSimSwarmController
+from .swarm_controller import PointDistributor, APFSwarmController
+from .sdf_executor import SDFExecutor
 
 
 class LLMAirSimSwarmController:

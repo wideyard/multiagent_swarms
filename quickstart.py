@@ -12,9 +12,12 @@ from pathlib import Path
 
 def setup_environment():
     """Setup Python path and environment"""
-    # Add current directory to path
+    # Add current directory and src package to path
     current_dir = Path(__file__).parent
+    src_dir = current_dir / "src"
     sys.path.insert(0, str(current_dir))
+    if src_dir.exists():
+        sys.path.insert(0, str(src_dir))
     
     print(f"Working directory: {current_dir}")
 
@@ -69,7 +72,7 @@ def test_llm_connection():
     print("\nTesting LLM API connection...")
     
     try:
-        from llm_client import LLMClient
+        from src.llm_client import LLMClient
         
         client = LLMClient()
         print("  Testing API call...")
@@ -134,7 +137,7 @@ def run_interactive():
     print("="*70 + "\n")
     
     try:
-        from integrated_controller import LLMAirSimSwarmController
+        from src.integrated_controller import LLMAirSimSwarmController
         
         # Create list of 10 drone names
         drone_names = [f"Drone{i}" for i in range(1, 11)]

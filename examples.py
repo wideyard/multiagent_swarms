@@ -4,7 +4,7 @@ Demonstrates the complete pipeline: shape description -> waypoint generation -> 
 """
 
 import time
-from integrated_controller import LLMAirSimSwarmController
+from src.integrated_controller import LLMAirSimSwarmController
 
 
 def example_basic_usage():

@@ -3,8 +3,8 @@ Integration of RAG system with LLM AirSim Swarm Controller
 Enhances task understanding and shape generation with domain knowledge
 """
 
-from rag_system import QwenEmbedding, KnowledgeBase, RAGLLMClient
-from llm_client import LLMClient, SDFGenerator
+from .rag_system import QwenEmbedding, KnowledgeBase, RAGLLMClient
+from .llm_client import LLMClient, SDFGenerator
 import os
 
 

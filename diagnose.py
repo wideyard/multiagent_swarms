@@ -9,6 +9,13 @@ import os
 import json
 from pathlib import Path
 
+# Ensure src package is importable when running from repo root
+current_dir = Path(__file__).parent
+src_dir = current_dir / "src"
+sys.path.insert(0, str(current_dir))
+if src_dir.exists():
+    sys.path.insert(0, str(src_dir))
+
 
 def print_header(text):
     print(f"\n{'='*70}")
@@ -163,7 +170,7 @@ def test_llm_api():
     print_section("5. LLM API Connection Test")
     
     try:
-        from llm_client import LLMClient
+        from src.llm_client import LLMClient
         
         print("   Attempting to connect to LLM API...")
         client = LLMClient()
@@ -226,14 +233,14 @@ def check_project_structure():
     print_section("7. Project Files")
     
     required_files = [
-        ("llm_client.py", "LLM Client"),
-        ("airsim_controller.py", "AirSim Controller"),
-        ("swarm_controller.py", "Swarm Controller"),
-        ("sdf_executor.py", "SDF Executor"),
-        ("integrated_controller.py", "Integrated Controller"),
-        ("config.py", "Configuration"),
-        ("examples.py", "Examples"),
-        ("README.md", "Documentation"),
+        ("src/llm_client.py", "LLM Client"),
+        ("src/airsim_controller.py", "AirSim Controller"),
+        ("src/swarm_controller.py", "Swarm Controller"),
+        ("src/sdf_executor.py", "SDF Executor"),
+        ("src/integrated_controller.py", "Integrated Controller"),
+        ("src/config.py", "Configuration"),
+        ("examples.py", "Examples Script"),
+        ("docs/README.md", "Documentation"),
         ("requirements.txt", "Dependencies"),
     ]
     
